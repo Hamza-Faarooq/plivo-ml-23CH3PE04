@@ -393,7 +393,32 @@ File to Edit: model.py
 The Change: In your Config class, change dropout = 0.0 to dropout = 0.05
 
 RESULTS:
-
+corpus: 7,318,592 bytes -> 7,318,592 tokens (vocab 256)
+model: 1,820,352 params
+step     1  loss 5.5450  (732 ms/step)  lr 6.67e-06
+step   100  loss 3.7888  (665 ms/step)  lr 6.67e-04
+step   200  loss 2.1490  (673 ms/step)  lr 9.98e-04
+step   300  loss 1.8459  (685 ms/step)  lr 9.85e-04
+step   400  loss 1.7240  (680 ms/step)  lr 9.58e-04
+step   500  loss 1.6722  (668 ms/step)  lr 9.19e-04
+step   600  loss 1.6123  (660 ms/step)  lr 8.69e-04
+step   700  loss 1.5504  (658 ms/step)  lr 8.09e-04
+step   800  loss 1.5091  (654 ms/step)  lr 7.42e-04
+step   900  loss 1.4464  (651 ms/step)  lr 6.68e-04
+step  1000  loss 1.4033  (648 ms/step)  lr 5.90e-04
+step  1100  loss 1.3886  (647 ms/step)  lr 5.10e-04
+step  1200  loss 1.3661  (647 ms/step)  lr 4.31e-04
+step  1300  loss 1.3470  (647 ms/step)  lr 3.55e-04
+step  1400  loss 1.3193  (646 ms/step)  lr 2.84e-04
+step  1500  loss 1.3010  (645 ms/step)  lr 2.19e-04
+step  1600  loss 1.2794  (646 ms/step)  lr 1.64e-04
+step  1700  loss 1.2909  (646 ms/step)  lr 1.20e-04
+step  1800  loss 1.2827  (648 ms/step)  lr 8.68e-05
+step  1900  loss 1.2739  (646 ms/step)  lr 6.68e-05
+step  2000  loss 1.2770  (646 ms/step)  lr 6.00e-05
+saved ckpt.pt  (1291s total)
+((env) ) hamza@Hamza:~/speedrun/llm_handout$ python starter/evaluate.py --checkpoint ckpt.pt --text_file data/dev_eval.txt
+{"bpb": 1.9104, "n_params": 1820352, "steps": 2000, "tokens_in_eval": 159225, "tokens_scored": 159224}
 
 
 
