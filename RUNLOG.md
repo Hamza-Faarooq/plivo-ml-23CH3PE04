@@ -530,7 +530,7 @@ if __name__ == "__main__":
             counts[pair] = counts.get(pair, 0) + 1
             
         if not counts:
-            break
+            break 
             
         # 2. Greedily select the highest-frequency pair
         best_pair = max(counts, key=counts.get)
