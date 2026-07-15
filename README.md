@@ -21,7 +21,7 @@ The baseline model was deliberately mediocre[cite: 6]. The following optimizatio
 ## Tokenizer Optimization Analysis
 A critical part of this project was addressing the Hindi (Devanagari) script issue. Because Hindi text in UTF-8 requires 3 bytes per character, the baseline byte-level tokenizer (vocab 256) inflated sequence lengths, effectively cutting the model's context window in the Hindi portions of the corpus.
 
-**Experiment 6** involved implementing a custom Byte-Pair Encoding (BPE) tokenizer to compress these sequences. While this technically compressed the data representation, it expanded the model's vocabulary size to 512. Within the strict 2,000-step training limit, the optimizer lacked sufficient iterations to adequately train the newly initialized embedding weights for these merged tokens, resulting in a regression in validation `bpb` (1.9504 vs 1.9094). This proved that within short-step speedruns, architecture efficiency often beats complex vocabulary engineering[cite: 6].
+**Experiment 6** involved implementing a custom Byte-Pair Encoding (BPE) tokenizer to compress these sequences. While this technically compressed the data representation, it expanded the model's vocabulary size to 512. Within the strict 2,000-step training limit, the optimizer lacked sufficient iterations to adequately train the newly initialized embedding weights for these merged tokens, resulting in a regression in validation `bpb` (1.9095 vs 1.9094). This proved that within short-step speedruns, architecture efficiency often beats complex vocabulary engineering[cite: 6].
 
 ## Experimental Results
 Each experiment isolated a single variable to measure its impact on the `bpb` metric[cite: 6].
@@ -33,7 +33,7 @@ Each experiment isolated a single variable to measure its impact on the `bpb` me
 | Exp 3 | Block Size = 256 | 1.82M | 1.9340 |
 | **Exp 4** | **LR 1e-3 (Winner)** | **1.82M** | **1.9094** |
 | Exp 5 | Dropout 0.05 | 1.82M | 1.9104 |
-| Exp 6 | BPE Tokenizer (512 vocab) | 1.82M | 1.9504 |
+| Exp 6 | BPE Tokenizer (512 vocab) | 1.82M | 1.9095 |
 
 ## Setup Instructions
 
