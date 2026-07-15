@@ -319,7 +319,7 @@ saved ckpt.pt  (606s total)
 ((env) ) hamza@Hamza:~/speedrun/llm_handout$ python starter/evaluate.py --checkpoint ckpt.pt --text_file data/dev_eval.txt
 {"bpb": 2.0196, "n_params": 1820352, "steps": 2000, "tokens_in_eval": 159225, "tokens_scored": 159224}
 
-
+ 
 
 EXPERIMENT 3:
 BLOCK SIZE = 256 increased from 128
