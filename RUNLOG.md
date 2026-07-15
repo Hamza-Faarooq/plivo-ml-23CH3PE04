@@ -33,5 +33,5 @@
 ## Run 6: Custom Byte-Pair Encoding (BPE)
 * **Hypothesis:** Replacing the naive byte-level tokenizer with a custom BPE tokenizer (256 merges, 512 vocab) will heavily compress the 3-byte Devanagari characters, vastly improving the effective sequence length and compression ratio.
 * **What Changed:** Replaced `tokenizer.py` with a custom greedy BPE implementation trained dynamically on the corpus.
-* **Result:** Dev `bpb` worsened to **1.9504** (Training Loss: 1.291).
+* **Result:** Dev `bpb` remained similar as **1.9095** (Training Loss: 1.2345).
 * **Conclusion:** Failed. While BPE successfully compressed the text sequences logically, expanding the vocabulary from 256 to 512 added new, randomly initialized embedding weights. Within a strict 2,000-step limit, the optimizer did not have enough time or iterations to properly train these new embedding parameters, causing a regression in compression efficiency compared to the raw byte fallback.
