@@ -18,15 +18,15 @@
     <h1>Research Summary: LLM Speedrun Optimization</h1>
     
     <h2>1. Executive Summary</h2>
-    <p>This report documents the optimization of a GPT-style language model constrained to 2M parameters and 2,000 training steps. The primary goal was to minimize the Bits Per Byte (bpb) metric on a held-out mixed-language (English/Hindi) corpus. By implementing architectural upgrades—specifically SwiGLU, RMSNorm, and Rotary Positional Embeddings—and tuning the learning rate schedule, I successfully achieved a bpb of 1.9094[cite: 6].</p>
+    <p>This report documents the optimization of a GPT-style language model constrained to 2M parameters and 2,000 training steps. The primary goal was to minimize the Bits Per Byte (bpb) metric on a held-out mixed-language (English/Hindi) corpus. By implementing architectural upgrades—specifically SwiGLU, RMSNorm, and Rotary Positional Embeddings—and tuning the learning rate schedule, I achieved a final bpb of <strong>1.9095</strong>.</p>
 
     <h2>2. Architectural Specifications ("Nodes")</h2>
-    <p>The model architecture was rebuilt to maximize parameter efficiency. Below are the key components (nodes) engineered:</p>
+    <p>The model architecture was rebuilt to maximize parameter efficiency while strictly adhering to the 2,000,000 parameter hard cap[cite: 6].</p>
     <ul>
         <li><strong>RMSNorm:</strong> Replaced LayerNorm to normalize hidden states, providing faster execution and improved training stability.</li>
-        <li><strong>Rotary Positional Embeddings (RoPE):</strong> Replaced absolute position embeddings. RoPE allows the model to better manage relative positions, crucial for the complex sequence structures found in mixed-script text.</li>
-        <li><strong>SwiGLU Activation:</strong> Replaced the standard GELU layer. SwiGLU provides non-linearities that lead to more efficient information compression per parameter.</li>
-        <li><strong>Weight Tying:</strong> Shared weights between input embeddings and output projections, effectively reclaiming ~30% of the parameter count, which allowed for a wider embedding dimension (160) and deeper network (5 layers).</li>
+        <li><strong>Rotary Positional Embeddings (RoPE):</strong> Replaced absolute position embeddings. RoPE allows the model to better manage relative positions, crucial for the complex sequence structures found in mixed-script text[cite: 6].</li>
+        <li><strong>SwiGLU Activation:</strong> Replaced the standard GELU layer. SwiGLU provides non-linearities that lead to more efficient information compression per parameter[cite: 6].</li>
+        <li><strong>Weight Tying:</strong> Linked input embeddings and output projection weights, reclaiming significant parameter budget, which allowed for a wider (160 dim) hidden state and deeper network depth (5 layers).</li>
     </ul>
 
     <h2>3. Experimental Methodology (RunLog Summary)</h2>
@@ -36,22 +36,22 @@
         <tr><td>1</td><td>Baseline Architectural Overhaul</td><td>2.0467</td><td>Success</td></tr>
         <tr><td>2</td><td>Wider Model (192-dim)</td><td>2.0196</td><td>Success</td></tr>
         <tr><td>3</td><td>Context Window (256)</td><td>1.9340</td><td>Success</td></tr>
-        <tr><td>4</td><td>Learning Rate (1e-3)</td><td><strong>1.9094</strong></td><td><strong>Best</strong></td></tr>
+        <tr><td>4</td><td>Learning Rate (1e-3)</td><td><strong>1.9095</strong></td><td><strong>Best</strong></td></tr>
         <tr><td>5</td><td>Dropout (0.05)</td><td>1.9104</td><td>Regression</td></tr>
         <tr><td>6</td><td>Custom BPE Tokenizer</td><td>1.9504</td><td>Regression</td></tr>
     </table>
 
     <h2>4. Metric Justification: Why Bits Per Byte (bpb)?</h2>
-    <p>Bits Per Byte is the optimal metric for this task because it provides a hardware-agnostic, lossy-compression-invariant measure of how much information the model has learned about the text distribution. Unlike raw Cross-Entropy loss, which is tokenization-dependent, bpb normalizes the compression rate against the raw byte-stream of the data. This makes it the most robust metric for comparing the efficiency of the baseline byte-level tokenizer against the custom BPE approach, as it directly reflects how well the model "compresses" the language into its parameters[cite: 6].</p>
+    <p>Bits Per Byte is the optimal metric for this task because it provides a hardware-agnostic, lossy-compression-invariant measure of how much information the model has learned about the text distribution. Unlike raw Cross-Entropy loss, which is tokenization-dependent, bpb normalizes the compression rate against the raw byte-stream of the data. This makes it the most robust metric for comparing the efficiency of different tokenization strategies, as it directly reflects how well the model "compresses" the language into its parameters[cite: 6].</p>
 
     <h2>5. Human vs. Machine Collaboration Matrix</h2>
     <div class="breakdown">
         <div style="border-left: 5px solid #3498db;">
             <h3>Human Contribution (60%)</h3>
             <ul>
-                <li><strong>Hypothesis Generation:</strong> Identified the Devanagari byte-expansion issue and predicted the efficiency gains of wider residual streams.</li>
-                <li><strong>Constraint Management:</strong> Manually calculated parameter counts to ensure strict adherence to the 2M ceiling[cite: 6].</li>
-                <li><strong>Methodological Control:</strong> Enforced single-variable ablation studies and rejected regressive models (Exp 5, Exp 6).</li>
+                <li><strong>Strategy:</strong> Formulated the hypothesis that the byte-level tokenizer and context window size were the primary bottlenecks.</li>
+                <li><strong>Methodology:</strong> Designed the ablation study to isolate variables (LayerNorm vs. RMSNorm, Block Size, Learning Rate).</li>
+                <li><strong>Final Selection:</strong> Evaluated all `ckpt.pt` results and decided to revert to the Experiment 4 configuration based on the bpb performance metric.</li>
             </ul>
         </div>
         <div style="border-left: 5px solid #2ecc71;">
@@ -59,7 +59,7 @@
             <ul>
                 <li><strong>Implementation:</strong> Drafted the mathematical implementations for RMSNorm, SwiGLU, and RoPE layers.</li>
                 <li><strong>Boilerplate:</strong> Generated the training loop optimizations (AdamW, Cosine schedule, Gradient Clipping).</li>
-                <li><strong>Documentation:</strong> Assisted in generating the structured logging format and this summary report.</li>
+                <li><strong>Documentation:</strong> Assisted in structuring the logs, `NOTES.md`, and this `SUMMARY.html` file for readability.</li>
             </ul>
         </div>
     </div>
