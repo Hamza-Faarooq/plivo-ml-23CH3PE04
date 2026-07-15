@@ -1,6 +1,6 @@
 """A heavily optimized GPT variant utilizing Pre-LN, RMSNorm, SwiGLU, 
 and Rotary Positional Embeddings to minimize Bits Per Byte (bpb).
-"""
+""" 
 import math
 import torch
 import torch.nn as nn
