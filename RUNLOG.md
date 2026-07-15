@@ -385,7 +385,7 @@ saved ckpt.pt  (1305s total)
 
 
 
-
+note:: keeping dropout 0 gave slighter ebtter results than what we got after putting dropout to 0.05
 
 
 EXPERIMENT 5:
