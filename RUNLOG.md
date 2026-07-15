@@ -356,20 +356,39 @@ saved ckpt.pt  (1333s total)
 EXPERIMENT 4:
 File to Edit: train.py
 The Change: In the main() function, change the default learning rate argument to 1e-3 (ap.add_argument("--lr", type=float, default=1e-3)).
-Results:
+Results: 
+model: 1,820,352 params
+step     1  loss 5.5441  (612 ms/step)  lr 6.67e-06
+step   100  loss 3.7663  (682 ms/step)  lr 6.67e-04
+step   200  loss 2.0858  (680 ms/step)  lr 9.98e-04
+step   300  loss 1.8631  (671 ms/step)  lr 9.85e-04
+step   400  loss 1.7121  (682 ms/step)  lr 9.58e-04
+step   500  loss 1.6705  (670 ms/step)  lr 9.19e-04
+step   600  loss 1.5666  (660 ms/step)  lr 8.69e-04
+step   700  loss 1.5092  (653 ms/step)  lr 8.09e-04
+step   800  loss 1.4831  (646 ms/step)  lr 7.42e-04
+step   900  loss 1.4239  (641 ms/step)  lr 6.68e-04
+step  1000  loss 1.4104  (647 ms/step)  lr 5.90e-04
+step  1100  loss 1.3812  (644 ms/step)  lr 5.10e-04
+step  1200  loss 1.3491  (642 ms/step)  lr 4.31e-04
+step  1300  loss 1.3400  (643 ms/step)  lr 3.55e-04
+step  1400  loss 1.3101  (645 ms/step)  lr 2.84e-04
+step  1500  loss 1.2822  (648 ms/step)  lr 2.19e-04
+step  1600  loss 1.2720  (651 ms/step)  lr 1.64e-04
+step  1700  loss 1.2525  (650 ms/step)  lr 1.20e-04
+step  1800  loss 1.2613  (653 ms/step)  lr 8.68e-05
+step  1900  loss 1.2437  (654 ms/step)  lr 6.68e-05
+step  2000  loss 1.2345  (652 ms/step)  lr 6.00e-05
+saved ckpt.pt  (1305s total)
+((env) ) hamza@Hamza:~/speedrun/llm_handout$ python starter/evaluate.py --checkpoint ckpt.pt --text_file data/dev_eval.txt
+{"bpb": 1.9094, "n_params": 1820352, "steps": 2000, "tokens_in_eval": 159225, "tokens_scored": 159224}
+
+
+
 
 
 
 EXPERIMENT 5:
-File to Edit: train.py
-The Change: In the main() function, change the default batch argument to 32 (ap.add_argument("--batch", type=int, default=32)). (Note: If this throws an Out Of Memory/Killed error on your CPU, revert it back to 16).
-RESULTS:
-
-
-
-
-
-EXPERIMENT 6:
 File to Edit: model.py
 The Change: In your Config class, change dropout = 0.0 to dropout = 0.05
 
