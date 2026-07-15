@@ -324,7 +324,32 @@ saved ckpt.pt  (606s total)
 EXPERIMENT 3:
 BLOCK SIZE = 256 increased from 128
 results:
-
+corpus: 7,318,592 bytes -> 7,318,592 tokens (vocab 256)
+model: 1,820,352 params
+step     1  loss 5.5441  (680 ms/step)  lr 4.00e-06
+step   100  loss 4.1058  (569 ms/step)  lr 4.00e-04
+step   200  loss 2.2004  (618 ms/step)  lr 5.99e-04
+step   300  loss 1.9094  (626 ms/step)  lr 5.91e-04
+step   400  loss 1.7505  (634 ms/step)  lr 5.76e-04
+step   500  loss 1.7098  (639 ms/step)  lr 5.54e-04
+step   600  loss 1.6043  (639 ms/step)  lr 5.25e-04
+step   700  loss 1.5426  (640 ms/step)  lr 4.91e-04
+step   800  loss 1.5189  (641 ms/step)  lr 4.52e-04
+step   900  loss 1.4518  (643 ms/step)  lr 4.09e-04
+step  1000  loss 1.4372  (646 ms/step)  lr 3.64e-04
+step  1100  loss 1.4094  (660 ms/step)  lr 3.19e-04
+step  1200  loss 1.3768  (664 ms/step)  lr 2.73e-04
+step  1300  loss 1.3644  (676 ms/step)  lr 2.29e-04
+step  1400  loss 1.3359  (677 ms/step)  lr 1.88e-04
+step  1500  loss 1.3085  (673 ms/step)  lr 1.52e-04
+step  1600  loss 1.2982  (670 ms/step)  lr 1.20e-04
+step  1700  loss 1.2797  (665 ms/step)  lr 9.43e-05
+step  1800  loss 1.2891  (663 ms/step)  lr 7.54e-05
+step  1900  loss 1.2701  (666 ms/step)  lr 6.39e-05
+step  2000  loss 1.2594  (666 ms/step)  lr 6.00e-05
+saved ckpt.pt  (1333s total)
+((env) ) hamza@Hamza:~/speedrun/llm_handout$ python starter/evaluate.py --checkpoint ckpt.pt --text_file data/dev_eval.txt
+{"bpb": 1.934, "n_params": 1820352, "steps": 2000, "tokens_in_eval": 159225, "tokens_scored": 159224}
 
 
 
