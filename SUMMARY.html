@@ -1,1 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Plivo ML Assignment - LLM Speedrun Summary</title>
+    <style>
+        body { font-family: sans-serif; line-height: 1.6; max-width: 800px; margin: 40px auto; padding: 0 20px; color: #333; }
+        h1, h2 { color: #2c3e50; }
+        table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        th { background-color: #f8f9fa; }
+        .highlight { background-color: #e8f4fd; padding: 10px; border-left: 5px solid #3498db; }
+    </style>
+</head>
+<body>
+    <h1>Plivo ML Assignment: LLM Speedrun Summary</h1>
+    
+    <h2>1. Executive Summary</h2>
+    <p>The objective was to optimize a GPT-like architecture within 2,000 steps and a 2,000,000 parameter limit. Through iterative experimentation, the final configuration achieved a <strong>Bits Per Byte (bpb) of 1.9094</strong>, outperforming the baseline by focusing on architectural stability, sequence context window expansion, and optimizer tuning[cite: 6].</p>
 
+    <h2>2. Final Model Architecture</h2>
+    <table>
+        <tr><th>Attribute</th><th>Value</th></tr>
+        <tr><td>Model</td><td>Custom GPT (Pre-LN, RMSNorm)</td></tr>
+        <tr><td>Parameters</td><td>1,820,352</td></tr>
+        <tr><td>Layers</td><td>4</td></tr>
+        <tr><td>Embedding Dim</td><td>192</td></tr>
+        <tr><td>Block Size</td><td>256</td></tr>
+        <tr><td>Activation</td><td>SwiGLU</td></tr>
+        <tr><td>Position Embedding</td><td>Rotary (RoPE)</td></tr>
+    </table>
+
+    <h2>3. Experimental Progression</h2>
+    <table>
+        <tr><th>Exp</th><th>Modification</th><th>Result (BPB)</th></tr>
+        <tr><td>Baseline</td><td>N/A</td><td>2.0467</td></tr>
+        <tr><td>Exp 2</td><td>Wider (192 dim)</td><td>2.0196</td></tr>
+        <tr><td>Exp 3</td><td>Block Size 256</td><td>1.9340</td></tr>
+        <tr><td>Exp 4</td><td>LR 1e-3 (Winner)</td><td><strong>1.9094</strong></td></tr>
+        <tr><td>Exp 5</td><td>Dropout 0.05</td><td>1.9104</td></tr>
+    </table>
+
+    <h2>4. Human vs. AI Collaboration</h2>
+    <div class="highlight">
+        <p><strong>Human Contribution:</strong> Defined the experimental methodology, hypothesized the impact of architectural changes (such as expanding the context window and adjusting the learning rate), managed the iteration control to ensure single-variable isolation, and conducted the final analysis of results.</p>
+        <p><strong>AI Contribution:</strong> Assisted with the implementation of the RMSNorm, SwiGLU, and Rotary Embedding modules. Generated the boilerplate training loop adjustments, debugging runtime errors, and drafted the documentation logs based on the training outputs.</p>
+    </div>
+
+    <h2>5. Key Insights</h2>
+    <ul>
+        <li><strong>Sequence Length is King:</strong> Due to UTF-8 Hindi character encoding, the baseline 128 context window was insufficient. Doubling it to 256 was the single most effective change.</li>
+        <li><strong>Overfitting Risk:</strong> Adding dropout (Exp 5) proved detrimental given the small 7MB corpus, confirming that raw predictive capacity was prioritized over regularization for this specific speedrun budget[cite: 6].</li>
+    </ul>
+</body>
+</html>
